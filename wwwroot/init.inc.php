@@ -12,6 +12,10 @@ define('WWW_DIR',       ROOT_DIR . 'wwwroot/');
 define('APP_DIR',       ROOT_DIR . 'approot/');
 define('CONFIG_DIR',    APP_DIR  . 'config/');
 define('TPL_DIR',       APP_DIR  . 'template/');
+// additions
+define('JS_DIR',        WWW_DIR . 'js/');
+define('CSS_DIR',       WWW_DIR . 'themes/default/');
+define('IMG_DIR',       WWW_DIR . 'images/');
 
 /**
  * load the private configure
