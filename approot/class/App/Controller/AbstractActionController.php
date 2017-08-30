@@ -26,7 +26,11 @@ abstract class AbstractActionController extends ActionController
         $this->layout();
         $this->layout
              ->addChild(new ViewModel('layout/includes/header'), '__header')
+             ->addChild(new ViewModel('layout/includes/sidebar'), '__sidebar')
              ->addChild(new ViewModel('layout/includes/footer'), '__footer');
+
+        // set breadcrumb
+        $this->helpers->breadcrumb->add('首页', $this->helpers->url());
 
          // check login
         if (empty($_SESSION['login_id'])) {
