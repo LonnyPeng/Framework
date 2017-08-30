@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <title>
+        <?php if ($this->title) : ?>
+            <?php echo $this->escape($this->title);?>
+        <?php else : ?>
+            Framework
+        <?php endif;?>
+    </title>
+</head>
+<body>
+    <?php echo $this->__header;?>
+
+    <?php echo $this->__content;?>
+    
+    <?php echo $this->__footer;?>
+</body>
+</html>
