@@ -1,0 +1,73 @@
+<div class="bread">
+    <strong>
+        <?php if($this->controller() == 'album') : ?>
+            <a href="<?php echo $this->url('album/list')?>">Album</a> /
+            <?php if($this->action() == 'list') :?>
+                List
+            <?php elseif ($this->action() == 'pic-list') :?>
+                <?php echo $albumTitle;?>
+            <?php elseif ($this->action() == 'add' ) :?>
+                <?php if ($this->param('id')) :?>
+                    Edit this album
+                <?php else :?>
+                    Add a album
+                <?php endif;?>
+            <?php endif;?>
+        <?php endif;?>
+        <?php if($this->controller() == 'message') :?>
+            <?php if($this->action() == 'document-list') :?>
+                <a href="<?php echo $this->url('message/document-list')?>">Policy & Document</a> / </a>List
+            <?php elseif ($this->action() == 'notice-list') :?>
+                <a href="<?php echo $this->url('message/notice-list')?>">Notification & Information</a> / </a>List
+            <?php elseif ($this->action() == 'document-edit' ) :?>
+                <?php if($this->param('id')) : ?>
+                    <a href="<?php echo $this->url('message/document-list')?>">Policy & Document</a> / </a>Edit
+                <?php else : ?>
+                    <a href="<?php echo $this->url('message/document-list')?>">Policy & Document</a> / </a>Add
+                <?php endif;?>
+            <?php elseif ($this->action() == 'notice-edit' ) :?>
+                <?php if($this->param('id')) : ?>
+                    <a href="<?php echo $this->url('message/notice-list')?>">Notification & Information</a> / </a>Edit
+                <?php else : ?>
+                    <a href="<?php echo $this->url('message/notice-list')?>">Notification & Information</a> / </a>Add
+                <?php endif;?>
+            <?php elseif ($this->action() == 'notice-detail' ) :?>
+                <a href="<?php echo $this->url('message/notice-list')?>">Notification & Information</a> / </a>Detail
+            <?php endif;?>
+        <?php endif;?>
+        <?php if('attendance' == $this->controller()) : ?>
+            <?php if( $this->action() == 'annual-employee-list') :?>
+                <a href="<?php echo $this->url('attendance/annual-employee-list')?>">Annual Summary</a> /
+                <?php echo ucwords(substr($this->action(), strripos($this->action(), '-') + 1));?>
+            <?php endif;?>
+            <?php if(preg_match('/shift/i', $this->action())) :?>
+                <a href="<?php echo $this->url('attendance/shift-list')?>">OT Shift</a> /
+                <?php if(preg_match('/edit/i', $this->action()) && !$this->param('shift_id')) : ?>
+                    Add
+                <?php else : ?>
+                    <?php echo ucwords(substr($this->action(), strripos($this->action(), '-') + 1));?>
+                <?php endif;?>
+            <?php endif;?>
+            <?php if(preg_match('/leave/i', $this->action())) :?>
+                <a href="<?php echo $this->url('attendance/leave-list')?>">Leaves</a> /
+                <?php if(preg_match('/edit/i', $this->action()) && !$this->param('leave_id')) : ?>
+                    Add
+                <?php else : ?>
+                    <?php echo ucwords(substr($this->action(), strripos($this->action(), '-') + 1));?>
+                <?php endif;?>
+            <?php endif;?>
+        <?php endif;?>
+        <?php if ($this->controller() == 'recruitment') : ?>
+            <a href="<?= $this->url('recruitment/list') ?>">Recruitment</a> /
+            <?php if ($this->action() == 'list') : ?>
+                List
+            <?php elseif ($this->action() == 'detail') : ?>
+                Detail
+            <?php elseif ($this->action() == 'edit' && !empty($this->param('recruitment_id'))) : ?>
+                Edit
+            <?php else : ?>
+                Add
+            <?php endif; ?>
+        <?php endif; ?>
+    </strong>
+</div>
