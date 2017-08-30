@@ -27,5 +27,17 @@ abstract class AbstractActionController extends ActionController
         $this->layout
              ->addChild(new ViewModel('layout/includes/header'), '__header')
              ->addChild(new ViewModel('layout/includes/footer'), '__footer');
+
+         // check login
+        if (empty($_SESSION['login_id'])) {
+            if ($this->helpers->pageId() != 'account-login') {
+                $this->funcs->redirect($this->helpers->url('account/login', array(
+                    'redirect' => ($this->funcs->isAjax() || $this->funcs->isPost()) ? null : $this->helpers->selfUrl(null, false)
+                )));
+            }
+        } else {
+            $member = $this->models->member->getMemberById($_SESSION['login_id']);
+            $this->locator->setService('Profile', $member);
+        }
     }
 }

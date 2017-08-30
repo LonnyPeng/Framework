@@ -14,6 +14,38 @@ class Funcs implements ServiceLocatorAwareInterface
     protected $locator = null;
 
     /**
+     * Get the HTTP referer
+     *
+     * @param string $defaultUrl
+     * @param boolean $checkHost
+     * @return string
+     */
+    public function getReferer($defaultUrl = null, $checkHost = true)
+    {
+        // _POST['redirect'] or _GET['redirect']
+        if (!empty($_REQUEST['redirect'])) {
+            return $_REQUEST['redirect'];
+        }
+
+        // check _SERVER['HTTP_REFERER']
+        if (!empty($_SERVER['HTTP_REFERER'])) {
+
+            // check host
+            if (!$checkHost || ($_SERVER['HTTP_HOST'] === parse_url($_SERVER['HTTP_REFERER'], PHP_URL_HOST))) {
+                return $_SERVER['HTTP_REFERER'];
+            }
+        }
+
+        // use the default URL
+        if (null === $defaultUrl) {
+            /* @var $helpers \Ebd\View\HelperManager */
+            $helpers = $this->locator->get(HELPER_MANAGER);
+            $defaultUrl = (string) $helpers->url();
+        }
+        return $defaultUrl;
+    }
+
+    /**
      * Redirect to some URL
      *
      * @param string $url
