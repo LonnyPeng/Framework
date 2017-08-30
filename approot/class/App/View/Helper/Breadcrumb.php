@@ -39,4 +39,28 @@ class Breadcrumb
         unset($this->nodes[$text]);
         return $this;
     }
+
+    /**
+     * Display the navigation
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        $pageStr = '<div id="breadcrumb"><i class="home-icon fa fa-home"></i>';
+        $key = 1;
+
+        foreach ($this->nodes as $title => $url) {
+
+            if ($url != null) {
+                $pageStr .= '<a href="' . htmlspecialchars($url) . '" >' . $title . '</a>';
+            } else {
+                $pageStr .= '<span>' . $title . '</span>';
+            }
+            $pageStr .= '<sup class="arrow-right">»</sup>';
+
+            $key++;
+        }
+        return $pageStr . '</div>';
+    }
 }
