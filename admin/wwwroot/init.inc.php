@@ -1,5 +1,7 @@
 <?php
 
+ini_set('date.timezone', 'Asia/Shanghai');
+
 use Framework\Loader\Autoloader;
 use Framework\ServiceLocator\ServiceLocator;
 use Framework\Utils\Http;
@@ -28,9 +30,15 @@ include CONFIG_DIR . 'perms.inc.php';
 /**
  * Run enviorment
  */
+/**
+ * Run enviorment
+ */
 !defined('ENV_PRODUCTION') && define('ENV_PRODUCTION', false);
 if (!ENV_PRODUCTION) {
-    error_reporting(E_ALL);
+    ini_set("display_errors", "On");
+    error_reporting(E_ALL | E_STRICT);
+} else {
+	error_reporting(false);
 }
 
 /**
@@ -42,8 +50,13 @@ if (!ENV_PRODUCTION) {
 /**
  * library
  */
-!defined('LIB_DIR') && define('LIB_DIR', ROOT_DIR . '/library/');
+!defined('LIB_DIR') && define('LIB_DIR', ROOT_DIR . '../../library/');
 
+/**#@+
+ * host information
+ */
+!defined('SSL_ENABLED') && define('SSL_ENABLED', false);
+!defined('HTTP_SERVER') && define('HTTP_SERVER', (SSL_ENABLED ? 'https://' : 'http://') . $_SERVER["HTTP_HOST"]);
 
 /**#@+
  * database information
@@ -60,6 +73,14 @@ if (!ENV_PRODUCTION) {
 !defined('DB2_PASSWORD') && define('DB2_PASSWORD', '');
 !defined('DB2_DATABASE') && define('DB2_DATABASE', '');
 
+/**#@-*/
+
+/**#@+
+ * redis
+ */
+!defined('REDIS_ENABLED') && define('REDIS_ENABLED', false);
+!defined('REDIS_HOST') && define('REDIS_HOST', '127.0.0.1');
+!defined('REDIS_PORT') && define('REDIS_PORT', '6379');
 /**#@-*/
 
 /**
